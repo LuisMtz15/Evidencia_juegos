@@ -1,13 +1,3 @@
-"""Cannon, hitting targets with projectiles.
-
-Exercises
-
-1. Keep score by counting target hits.
-2. Vary the effect of gravity.
-3. Apply gravity to the targets.
-4. Change the speed of the ball.
-"""
-
 from random import randrange
 from turtle import *
 
@@ -68,14 +58,14 @@ def move():
         if abs(target - ball) > 13:
             targets.append(target)
 
+    # Wrap the ball around the screen
+    if ball.x < -200:
+        ball.x = 200 
+
     draw()
 
-    for target in targets:
-        if not inside(target):
-            return
-
-    ontimer(move, 50)
-
+    #Change the speed of the projectile and balls by changing the number in ontimer
+    ontimer(move, 20)
 
 setup(420, 420, 370, 0)
 hideturtle()

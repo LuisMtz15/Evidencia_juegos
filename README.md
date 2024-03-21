@@ -14,9 +14,25 @@ Tal como sucede generalmente en el ambiente laboral, se debe modificar un produc
 ## Juegos Modificados:
 ***Libería -> Freegames***
 * Pacman
+  * Fantasamas Inteligentes
+  * Cambiar el tablero
+  * Fantasmas más rápidos
 * Paint
+  * Color nuevo
+  * Dibujar:
+    * Círculo
+    * Triágulo
+    * Rectángulo
 * Tiro Parabólico
+  * Velocidad de los objetos más rápida
+  * Juego infinito
 * Memorama
+  * Contar el núnmero de taps
+  * Detección del final del juego
+  * Números centrados
+  * Número de colores
 * Snake
+  * Comida se mueve al azar
+  * Diferentes colores en los objetos
 
 

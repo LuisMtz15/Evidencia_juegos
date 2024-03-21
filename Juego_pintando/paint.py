@@ -1,19 +1,17 @@
-
 from turtle import *
-
 from freegames import vector
 
-
+# Función para dibujar una línea recta entre dor puntos
 def line(start, end):
-    """Draw line from start to end."""
+    """Dibuja una línea desde start hasta end."""
     up()
     goto(start.x, start.y)
     down()
     goto(end.x, end.y)
 
-
+# Función para dibujar un cuadrado de distancia decidida por el usuario
 def square(start, end):
-    """Draw square from start to end."""
+    """Dibuja un cuadrado desde start hasta end."""
     up()
     goto(start.x, start.y)
     down()
@@ -21,58 +19,61 @@ def square(start, end):
 
     for count in range(4):
         forward(end.x - start.x)
-        left(90)
+        left(90) #Rota 90 grados cada que hace una linea
 
     end_fill()
 
-
+# Función para dibujar un círculo 
 def circle(start, end):
-    """Draw circle from start to end."""
+    """Dibuja un círculo desde start hasta end."""
     up()
     goto(start.x, start.y)
     down()
     begin_fill()
 
-    radius = (end.x - start.x) / 2  # Calcular el radio del círculo
-    for count in range(360):
-        forward(3.1416*end.x/360 - 3.1416*start.x/360)
+    
+    for count in range(360): #Cada vez gira 1 grado y lo hace 360 veces
+        
+        #Calcular su radio para que sea de ese tamaño
+        forward(3.1416 * end.x / 360 - 3.1416 * start.x / 360) 
         left(1)
         
     end_fill()
 
-
+# Función para dibujar un rectángulo 
 def rectangle(start, end):
-    """Draw rectangle from start to end."""
+    """Dibuja un rectángulo desde start hasta end."""
     up()
     goto(start.x, start.y)
     down()
     begin_fill()
 
     for _ in range(2):
+        #Gira 90° cada que acaba con una linea y lo hace 4 veces
         forward(end.x - start.x)
-        left(90)
+        left(90) 
         forward(end.y - start.y)
         left(90)
 
     end_fill()
 
-
+# Función para dibujar un triángulo 
 def triangle(start, end):
-    """Draw triangle from start to end."""
+    """Dibuja un triángulo desde start hasta end."""
     up()
     goto(start.x, start.y)
     down()
     begin_fill()
 
     for _ in range(3):
+        #Forma un trianguloo equilatero
         forward(end.x - start.x)
         left(120)
 
     end_fill()
 
-
 def tap(x, y):
-    """Store starting point or draw shape."""
+    """Almacena el punto de inicio o dibuja la forma."""
     start = state['start']
 
     if start is None:
@@ -83,13 +84,14 @@ def tap(x, y):
         shape(start, end)
         state['start'] = None
 
-
 def store(key, value):
-    """Store value in state at key."""
+    """Almacena el valor en el estado en la clave especificada."""
     state[key] = value
 
-
+# Estado inicial con punto de inicio nulo y forma de línea
 state = {'start': None, 'shape': line}
+
+# Configuración inicial de la pantalla y configuración de controles
 setup(420, 420, 370, 0)
 onscreenclick(tap)
 listen()

@@ -3,7 +3,11 @@ from turtle import *
 
 from freegames import floor, vector
 
+
+# Estado del juego
 state = {'score': 0}
+
+# Inicialización de la tortuga para el camino y el escritor
 path = Turtle(visible=False)
 writer = Turtle(visible=False)
 aim = vector(5, 0)
@@ -15,10 +19,12 @@ ghosts = [
     [vector(100, -160), vector(-5, 0)],
 ]
 
-# Add a new variable to store the last direction of Pacman
+# Añadir una nueva variable para almacenar la última dirección de Pacman
 last_direction = vector(0, 0)
 
 # fmt: off
+
+'''Tablero del juego'''
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
@@ -44,8 +50,10 @@ tiles = [
 
 # fmt: on
 
+
+# Función para dibujar un cuadrado en la posición (x, y)
 def square(x, y):
-    """Draw square using path at (x, y)."""
+    """Dibuja un cuadrado en la posición (x, y)."""
     path.up()
     path.goto(x, y)
     path.down()
@@ -57,17 +65,17 @@ def square(x, y):
 
     path.end_fill()
 
-
+# Función para obtener el desplazamiento de un punto en el tablero
 def offset(point):
-    """Return offset of point in tiles."""
+    """Devuelve el desplazamiento de un punto en los azulejos."""
     x = (floor(point.x, 20) + 200) / 20
     y = (180 - floor(point.y, 20)) / 20
     index = int(x + y * 20)
     return index
 
-
+# Función para verificar si un punto es válido en el tablero
 def valid(point):
-    """Return True if point is valid in tiles."""
+    """Devuelve True si el punto es válido en los azulejos."""
     index = offset(point)
 
     if tiles[index] == 0:
@@ -80,9 +88,9 @@ def valid(point):
 
     return point.x % 20 == 0 or point.y % 20 == 0
 
-
+# Función para dibujar el mundo
 def world():
-    """Draw world using path."""
+    """Dibuja el mundo utilizando el camino."""
     bgcolor('black')
     path.color('blue')
 
@@ -99,9 +107,9 @@ def world():
                 path.goto(x + 10, y + 10)
                 path.dot(2, 'white')
 
-
+# Función para mover a Pacman y a los fantasmas
 def move():
-    """Move pacman and all ghosts."""
+    """Mueve a Pacman y a todos los fantasmas."""
     writer.undo()
     writer.write(state['score'])
 
@@ -149,17 +157,18 @@ def move():
 
     ontimer(move, 50)
 
-
+# Función para cambiar la dirección de Pacman
 def change(x, y):
-    """Change pacman aim if valid."""
+    """Cambia la dirección de Pacman si es válida."""
     global last_direction
     if valid(pacman + vector(x, y)):
         aim.x = x
         aim.y = y
         last_direction = vector(x, y)
 
-
+# Función para mover a los fantasmas inteligentemente hacia el pacman dependiendo de sus movimientos
 def move_ghosts():
+    """Mueve a los fantasmas hacia Pacman de manera más inteligente."""
     for point, course in ghosts:
         diff = pacman - point
 

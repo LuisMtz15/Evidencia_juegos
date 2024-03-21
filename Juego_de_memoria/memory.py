@@ -83,6 +83,7 @@ def draw():
 
     up()
     goto(-200, 200)  # Posición para mostrar el número de toques
+    color('black')
     write(f'Número de toques: {tap_count}', font=('Arial', 16, 'normal'))  # Muestra el número de toques en la ventana
 
     update()

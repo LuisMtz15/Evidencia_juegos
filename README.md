@@ -2,8 +2,8 @@
 
 ## Integrantes:
 
-Andrea Itzel Ortega Morales A01748800.
-Luis Fernando Martínez RUeda A01748080.
+### Andrea Itzel Ortega Morales A01748800.
+### Luis Fernando Martínez Rueda A01748080.
 
 ## Actividad:
 
@@ -13,10 +13,10 @@ Tal como sucede generalmente en el ambiente laboral, se debe modificar un produc
 
 ## Juegos Modificados:
 ***Libería -> Freegames***
-Pacman.
-Paint.
-Tiro Parabólico.
-Memorama.
-Snake.
+* Pacman
+* Paint
+* Tiro Parabólico
+* Memorama
+* Snake
 
 

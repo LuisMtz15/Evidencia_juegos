@@ -41,42 +41,34 @@ def draw():
 
 # Función para mover el proyectil y los objetivos
 def move():
-    """Mueve el proyectil y los objetivos."""
-    if randrange(40) == 0:  
+    """Move ball and targets."""
+    if randrange(40) == 0:
         y = randrange(-150, 150)
         target = vector(200, y)
         targets.append(target)
 
-    for target in targets:  
+    for target in targets:
         target.x -= 0.5
 
-    if inside(ball): 
-        speed.y -= 0.35 
+    if inside(ball):
+        speed.y -= 0.35
         ball.move(speed)
 
     dupe = targets.copy()
     targets.clear()
 
-    for target in dupe:  
-        # Eliminar objetivos que el proyectil ha tocado
-        
+    for target in dupe:
         if abs(target - ball) > 13:
             targets.append(target)
 
-    # Wrap the ball around the screen
+    # cambia su posicion si sale de la pantalla
     if ball.x < -200:
         ball.x = 200 
 
     draw()
 
-    for target in targets:  
-        # Verificar si algún objetivo ha salido de la pantalla
-        
-        if not inside(target):
-            return
-    
-    # Temporizador para el movimiento
-    ontimer(move, 25)   
+    #cambia la velocidad del proyectil
+    ontimer(move, 20)  
 
 # Configuración inicial de la pantalla y ejecución del juego
 setup(420, 420, 370, 0)

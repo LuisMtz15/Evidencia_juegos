@@ -1,82 +1,80 @@
-"""Cannon, hitting targets with projectiles.
-
-Exercises
-
-1. Keep score by counting target hits.
-2. Vary the effect of gravity.
-3. Apply gravity to the targets.
-4. Change the speed of the ball.
-"""
-
+# Importaciones
 from random import randrange
 from turtle import *
-
 from freegames import vector
 
-ball = vector(-200, -200)
-speed = vector(0, 0)
-targets = []
+# Inicialización de variables
+ball = vector(-200, -200)  # Posición inicial del proyectil
+speed = vector(0, 0)  # Velocidad inicial del proyectil
+targets = []  
 
-
+# Función para responder al clic en la pantalla
 def tap(x, y):
-    """Respond to screen tap."""
-    if not inside(ball):
-        ball.x = -199
+    """Responde al clic en la pantalla."""
+    if not inside(ball): 
+        # Si el proyectil no está dentro de la pantalla
+        
+        ball.x = -199  
         ball.y = -199
-        speed.x = (x + 200) / 25
-        speed.y = (y + 200) / 25
+        speed.x = (x + 200) / 17  
+        speed.y = (y + 200) / 17  
 
-
+# Función para verificar si un punto está dentro de la pantalla
 def inside(xy):
-    """Return True if xy within screen."""
+    """Devuelve True si xy está dentro de la pantalla."""
     return -200 < xy.x < 200 and -200 < xy.y < 200
 
-
+# Función para dibujar el proyectil y los balones
 def draw():
-    """Draw ball and targets."""
+    """Dibuja el proyectil y los objetivos."""
     clear()
 
-    for target in targets:
+    for target in targets:  
         goto(target.x, target.y)
         dot(20, 'blue')
 
-    if inside(ball):
+    if inside(ball):  
         goto(ball.x, ball.y)
-        dot(6, 'red')
+        dot(6, 'red')  
 
     update()
 
-
+# Función para mover el proyectil y los objetivos
 def move():
-    """Move ball and targets."""
-    if randrange(40) == 0:
+    """Mueve el proyectil y los objetivos."""
+    if randrange(40) == 0:  
         y = randrange(-150, 150)
         target = vector(200, y)
         targets.append(target)
 
-    for target in targets:
+    for target in targets:  
         target.x -= 0.5
 
-    if inside(ball):
-        speed.y -= 0.35
+    if inside(ball): 
+        speed.y -= 0.35 
         ball.move(speed)
 
     dupe = targets.copy()
     targets.clear()
 
-    for target in dupe:
+    for target in dupe:  
+        # Eliminar objetivos que el proyectil ha tocado
+        
         if abs(target - ball) > 13:
             targets.append(target)
 
     draw()
 
-    for target in targets:
+    for target in targets:  
+        # Verificar si algún objetivo ha salido de la pantalla
+        
         if not inside(target):
             return
+    
+    # Temporizador para el movimiento
+    ontimer(move, 25)   
 
-    ontimer(move, 50)
-
-
+# Configuración inicial de la pantalla y ejecución del juego
 setup(420, 420, 370, 0)
 hideturtle()
 up()

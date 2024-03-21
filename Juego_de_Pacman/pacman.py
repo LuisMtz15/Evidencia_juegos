@@ -147,7 +147,7 @@ def move():
         if abs(pacman - point) < 20:
             return
 
-    ontimer(move, 10)
+    ontimer(move, 50)
 
 
 def change(x, y):
@@ -189,7 +189,7 @@ def move_ghosts():
         if valid(point + course):
             point.move(course)
 
-    ontimer(move_ghosts, 100)
+    ontimer(move_ghosts, 10)
 
 
 setup(420, 420, 370, 0)

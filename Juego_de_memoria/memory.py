@@ -1,21 +1,14 @@
-"""Memory, puzzle game of number pairs.
-
-Exercises:
-
-1. Count and print how many taps occur.
-2. Decrease the number of tiles to a 4x4 grid.
-3. Detect when all tiles are revealed.
-4. Center single-digit tile.
-5. Use letters instead of tiles.
-"""
-
-from random import *
+from random import shuffle, choice
 from turtle import *
-
 from freegames import path
 
 car = path('car.gif')
 tiles = list(range(32)) * 2
+shuffle(tiles)
+
+# Diccionario para asignar colores a cada número
+num_colors = {}
+
 state = {'mark': None}
 hide = [True] * 64
 
@@ -74,14 +67,16 @@ def draw():
         x, y = xy(mark)
         up()
         goto(x + 2, y)
-        color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        num = tiles[mark]
+        if num not in num_colors:
+            num_colors[num] = choice(['blue', 'green', 'red', 'purple', 'orange', 'brown', 'pink', 'cyan', 'magenta', 'yellow', 'teal', 'olive', 'navy', 'maroon', 'lime', 'aqua'])
+        color(num_colors[num])  # Configurar el color del texto
+        write(str(num), font=('Arial', 30, 'normal'))
 
     update()
     ontimer(draw, 100)
 
 
-shuffle(tiles)
 setup(420, 420, 370, 0)
 addshape(car)
 hideturtle()

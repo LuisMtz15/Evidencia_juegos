@@ -171,7 +171,7 @@ def move_ghosts():
     """Mueve a los fantasmas hacia Pacman de manera más inteligente."""
     for point, course in ghosts:
         diff = pacman - point
-
+        #verificar la posicón de pacman y mover al fantasma hacia esa dirección
         if last_direction == vector(5, 0) and diff.x > 0:
             course.x = 5
             course.y = 0
@@ -184,7 +184,7 @@ def move_ghosts():
         elif last_direction == vector(0, -5) and diff.y < 0:
             course.x = 0
             course.y = -5
-        else:
+        else: #si no se cumple ninguna de las condiciones anteriores, el fantasma se moverá aleatoriamente
             options = [
                 vector(5, 0),
                 vector(-5, 0),
@@ -194,13 +194,13 @@ def move_ghosts():
             plan = choice(options)
             course.x = plan.x
             course.y = plan.y
-
+        #verificar si el movimiento del fantasma es válido
         if valid(point + course):
             point.move(course)
 
     ontimer(move_ghosts, 10)
 
-
+# Configuración inicial de la pantalla y controles
 setup(420, 420, 370, 0)
 hideturtle()
 tracer(False)

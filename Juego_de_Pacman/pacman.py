@@ -1,14 +1,3 @@
-"""Pacman, classic arcade game.
-
-Exercises
-
-1. Change the board.
-2. Change the number of ghosts.
-3. Change where pacman starts.
-4. Make the ghosts faster/slower.
-5. Make the ghosts smarter.
-"""
-
 from random import choice
 from turtle import *
 
@@ -25,6 +14,10 @@ ghosts = [
     [vector(100, 160), vector(0, -5)],
     [vector(100, -160), vector(-5, 0)],
 ]
+
+# Add a new variable to store the last direction of Pacman
+last_direction = vector(0, 0)
+
 # fmt: off
 tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -49,7 +42,6 @@ tiles = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 ]
 # fmt: on
-
 
 def square(x, y):
     """Draw square using path at (x, y)."""
@@ -159,9 +151,44 @@ def move():
 
 def change(x, y):
     """Change pacman aim if valid."""
+    global last_direction
     if valid(pacman + vector(x, y)):
         aim.x = x
         aim.y = y
+        last_direction = vector(x, y)
+
+
+def move_ghosts():
+    for point, course in ghosts:
+        diff = pacman - point
+
+        if last_direction == vector(5, 0) and diff.x > 0:
+            course.x = 5
+            course.y = 0
+        elif last_direction == vector(-5, 0) and diff.x < 0:
+            course.x = -5
+            course.y = 0
+        elif last_direction == vector(0, 5) and diff.y > 0:
+            course.x = 0
+            course.y = 5
+        elif last_direction == vector(0, -5) and diff.y < 0:
+            course.x = 0
+            course.y = -5
+        else:
+            options = [
+                vector(5, 0),
+                vector(-5, 0),
+                vector(0, 5),
+                vector(0, -5),
+            ]
+            plan = choice(options)
+            course.x = plan.x
+            course.y = plan.y
+
+        if valid(point + course):
+            point.move(course)
+
+    ontimer(move_ghosts, 100)
 
 
 setup(420, 420, 370, 0)
@@ -177,4 +204,5 @@ onkey(lambda: change(0, 5), 'Up')
 onkey(lambda: change(0, -5), 'Down')
 world()
 move()
+move_ghosts()
 done()
